@@ -73,7 +73,7 @@ const CreateProduct = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6 flex flex-col items-center">
+    <div className="min-h-screen text-black bg-gray-50 p-4 sm:p-6 flex flex-col items-center">
       <Toaster position="top-center" reverseOrder={false} />
 
       <div className="w-full max-w-2xl bg-white rounded-xl shadow-md p-6">
