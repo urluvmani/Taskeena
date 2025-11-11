@@ -242,8 +242,8 @@ const ProductDetail = () => {
           <h3 className="text-2xl font-semibold text-emerald-700 mb-4">
             Customer Reviews
           </h3>
-          <div className="flex items-start justify-between w-full gap-5">
-            <div className=" shadow-2xl w-1/2 p-5 rounded-md max-h-[60vh] overflow-y-auto">
+          <div className="flex md:flex-row flex-col items-start justify-between w-full gap-5">
+            <div className=" shadow-2xl w-[90vw] md:w-1/2 p-5 rounded-md max-h-[60vh] overflow-y-auto">
               {reviews.length === 0 ? (
                 <p className="text-gray-500">No reviews yet.</p>
               ) : (
@@ -266,7 +266,7 @@ const ProductDetail = () => {
               )}
             </div>
 
-            <div className="Form  w-1/2 mx-auto">
+            <div className="Form w-[90vw]  md:w-1/2 mx-auto">
               {auth?.token && (
                 <form
                   onSubmit={handleSubmitReview}
