@@ -141,7 +141,7 @@ const Home = () => {
             alt="Beauty banner"
             className="absolute inset-0 w-full h-full rounded-2xl object-cover brightness-75"
           />
-          <div className="relative text-center h-[400px] px-6 md:px-12 text-white z-10">
+          <div className="relative text-center md:h-[250px] h-[300]  px-6 md:px-12 text-white z-10">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
