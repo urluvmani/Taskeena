@@ -8,7 +8,7 @@ import Login from './pages/auth/Login.jsx'
 import CartPage from './pages/CartPage.jsx'
 import PageNotFound from './pages/PageNotFound.jsx'
 import { ToastContainer } from 'react-toastify'
-import Contact from './pages/Contact.jsx'
+import About from './pages/About.jsx'
 import Dashboard from './pages/user/Dashboard.jsx'
 import PrivateRoute from './routes/Private.jsx'
 import ForgotPassword from './pages/auth/ForgotPassword.jsx'
@@ -68,7 +68,7 @@ const App = () => {
         <Route path='/login' element={<Login/>} />
         <Route path='/forgot-password' element={<ForgotPassword/>} />
         <Route path='/cart' element={<CartPage/>} />
-        <Route path='/contact' element={<Contact/>} />
+        <Route path='/about' element={<About/>} />
         <Route path='*' element={<PageNotFound/>} />
       </Routes>
     </div>

@@ -24,8 +24,8 @@ const Footer = () => {
                       <h1>  Cart</h1>
 
           </Link>
-          <Link to="/contact" className="hover:text-emerald-100 transition">
-                      <h1>  Contact us</h1>
+          <Link to="/about" className="hover:text-emerald-100 transition">
+                      <h1>  About us</h1>
 
           </Link>
         </div>
