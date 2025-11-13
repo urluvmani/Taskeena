@@ -27,6 +27,7 @@ import ProductDetail from './pages/ProductDetail.jsx'
 import AllCategory from './pages/AllCategory.jsx'
 import CategoryProduct from './pages/CategoryProduct.jsx'
 import UpdateProfile from './pages/user/UpdateProfile.jsx'
+import Collections from './pages/Collections.jsx'
 
 const App = () => {
 
@@ -36,10 +37,12 @@ const App = () => {
     <div  className='min-h-screen'>
       <Routes>
         <Route path='/' element={<Home/>} />
+        <Route path='/collections/all' element={<Collections/>} />
         <Route path='/search' element={<Search/>} />
         <Route path='/details/:slug' element={<ProductDetail/>} />
         <Route path='/allCategories' element={<AllCategory/>} />
         <Route path='/category/:slug' element={<CategoryProduct/>} />
+        <Route path='/collections/:slug' element={<CategoryProduct/>} />
 
         {/* User Protected Routes */}
         <Route path='/dashboard/user' element={<PrivateRoute/>} >
@@ -69,6 +72,7 @@ const App = () => {
         <Route path='/forgot-password' element={<ForgotPassword/>} />
         <Route path='/cart' element={<CartPage/>} />
         <Route path='/about' element={<About/>} />
+        <Route path='/pages/contact' element={<About/>} />
         <Route path='*' element={<PageNotFound/>} />
       </Routes>
     </div>
