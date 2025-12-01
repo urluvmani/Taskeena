@@ -163,7 +163,7 @@ const Home = () => {
               }
               className="bg-gradient-to-r from-rose-500 to-emerald-500 px-8 py-3 rounded-full font-semibold text-white shadow-lg hover:opacity-90 transition"
             >
-              Shop Now
+              Go to Shop
             </button>
           </div>
         </section>
@@ -237,7 +237,7 @@ const Home = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 xl:grid-cols-3 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-3 gap-2">
               {loading &&
                 Array.from({ length: 6 }).map((_, i) => (
                   <div
@@ -256,7 +256,7 @@ const Home = () => {
                   No products found.
                 </div>
               )}
-
+{/* Product listing */}
               {!loading &&
                 products.map((product, index) => {
                   const rawPrice = parsePrice(product?.price);
@@ -276,15 +276,15 @@ const Home = () => {
                           src={`${import.meta.env.VITE_API_URL}/api/v1/product/product-photo/${product._id}`}
                           loading="lazy"
                           alt={product?.name ?? "product"}
-                          className="w-full h-44 md:h-52 object-cover hover:scale-105 transition-transform"
+                          className="w-full object-center md:h-52 object-contain hover:scale-105 transition-transform"
                         />
                         {/* Stock or Discount badge */}
                         {product.discountPercent > 0 ? (
-                          <span className="absolute top-3 right-3 bg-rose-500 text-white text-xs font-bold px-2 py-1 rounded-lg shadow">
+                          <span className="absolute top-3 right-3 bg-rose-500 text-white text-xs md:font-bold md:px-2 md:py-1 p-1 rounded-lg shadow">
                             {product.discountPercent}% OFF
                           </span>
                         ) : (
-                          <span className="absolute top-3 left-3 bg-gradient-to-r from-emerald-600 to-rose-500 text-white text-xs font-medium px-2 py-1 rounded-xl shadow">
+                          <span className="absolute top-3 left-3 bg-gradient-to-r from-emerald-600 to-rose-500 text-white text-xs  px-2 py-1 rounded-xl shadow">
                             {parseInt(
                               product?.quantity?.$numberInt ?? product?.quantity
                             ) > 0
@@ -295,27 +295,27 @@ const Home = () => {
                       </div>
 
                       <div className="px-3 py-2">
-                        <h3 className="font-semibold text-emerald-800 uppercase">
+                        <h3 className="md:font-semibold md:text-lg text-xs line-clamp-1 text-emerald-800 uppercase">
                           {product?.name}
                         </h3>
-                        <p className="text-sm text-slate-500 line-clamp-2">
+                        <p className="text-sm hidden text-slate-500 line-clamp-1">
                           {product?.description ?? "No description available."}
                         </p>
 
-                        <div className="mt-2">
+                        <div className="">
                           {product.discountPercent > 0 ? (
                             <div>
                               <span className="line-through text-gray-400 text-sm">
                                 Rs. {rawPrice}
                               </span>
-                              <div className="text-rose-500 font-bold">
+                              <div className="text-rose-500 text-sm md:text-lg font-bold">
                                 Rs. {discounted.toFixed(0)} (
                                 {product.discountPercent}% OFF)
                               </div>
                             </div>
                           ) : (
                             <div className="md:text-xl text-base font-bold text-emerald-700">
-                              Rs. {priceText}
+                              {priceText}
                             </div>
                           )}
                         </div>

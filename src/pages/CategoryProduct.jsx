@@ -95,7 +95,7 @@ const CategoryProduct = () => {
         )}
 
         {/* ✅ Product Grid */}
-        <section className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 place-items-center">
+        <section className="grid grid-cols-2 xl:grid-cols-4 md:grid-cols-3 gap-2">
           {/* Loading skeletons */}
           {loading &&
             Array.from({ length: 8 }).map((_, i) => (
@@ -118,85 +118,74 @@ const CategoryProduct = () => {
           )}
 
           {/* ✅ Product Cards */}
-          {!loading &&
-            products.map((product) => {
-              const rawPrice = parsePrice(product?.price);
-              const priceText = formatCurrency(rawPrice);
-              const quantity = parseInt(
-                product?.quantity?.$numberInt ?? product?.quantity ?? 0
-              );
+       {!loading &&
+                products.map((product, index) => {
+                  const rawPrice = parsePrice(product?.price);
+                  const priceText = formatCurrency(rawPrice);
+                  const discounted =
+                    product.discountPercent > 0
+                      ? rawPrice - (rawPrice * product.discountPercent) / 100
+                      : rawPrice;
 
-              return (
-                <article
-                  key={product?._id ?? product?.id}
-                  className="w-[300px] bg-white/80 backdrop-blur-md rounded-2xl shadow-lg overflow-hidden hover:-translate-y-1 transition-all duration-300 border border-emerald-100"
-                >
-                  <div className="relative">
-                    <img
-                      src={`${import.meta.env.VITE_API_URL}/api/v1/product/product-photo/${product._id}`}
-                      alt={product?.name ?? "Taskeena product"}
-                      loading="lazy"
-                      className="w-full h-48 object-cover hover:scale-105 transition-transform duration-500"
-                    />
-                    <span
-                      className={`absolute top-3 left-3 text-xs font-medium px-3 py-1 rounded-full shadow ${
-                        quantity > 0
-                          ? "bg-gradient-to-r from-emerald-500 to-green-400 text-white"
-                          : "bg-gray-300 text-gray-700"
-                      }`}
+                  return (
+                    <article
+                      key={`${product?._id ?? product?.id ?? "product"}-${index}`}
+                      className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition shadow-emerald-200"
                     >
-                      {quantity > 0 ? "In Stock" : "Out of Stock"}
-                    </span>
-                  </div>
-
-                  <div className="p-4">
-                    <h3 className="font-semibold text-lg text-emerald-800 truncate">
-                      {product?.name}
-                    </h3>
-                    <p className="text-sm text-gray-500 mt-1 line-clamp-2">
-                      {product?.description || "No description available."}
-                    </p>
-
-                    <div className="mt-4 flex items-center justify-between">
-                      <div>
-                       <div className="mt-4 flex items-center justify-between">
-  <div>
-    {product.discountPercent > 0 ? (
-      <>
-        <div className="text-gray-400 line-through text-sm">
-          Rs. {product.price}
-        </div>
-        <div className="text-rose-500 font-bold text-lg">
-          Rs. {(product.price - (product.price * product.discountPercent) / 100).toFixed(0)} ({product.discountPercent}% OFF)
-        </div>
-      </>
-    ) : (
-      <div className="text-xl font-bold text-emerald-600">
-        Rs. {product.price}
-      </div>
-    )}
-  </div>
-</div>
-
-{/* Optional badge */}
-{product.discountPercent > 0 && (
-  <span className="absolute top-3 right-3 bg-rose-500 text-white text-xs font-bold px-2 py-1 rounded-lg shadow">
-    {product.discountPercent}% OFF
-  </span>
-)}
-
-                        <div className="text-xs text-gray-400">
-                          Qty: {quantity}
-                        </div>
+                      <div className="relative">
+                        <img
+                          src={`${import.meta.env.VITE_API_URL}/api/v1/product/product-photo/${product._id}`}
+                          loading="lazy"
+                          alt={product?.name ?? "product"}
+                          className="w-full object-center md:h-52 object-contain hover:scale-105 transition-transform"
+                        />
+                        {/* Stock or Discount badge */}
+                        {product.discountPercent > 0 ? (
+                          <span className="absolute top-3 right-3 bg-rose-500 text-white text-xs md:font-bold md:px-2 md:py-1 p-1 rounded-lg shadow">
+                            {product.discountPercent}% OFF
+                          </span>
+                        ) : (
+                          <span className="absolute top-3 left-3 bg-gradient-to-r from-emerald-600 to-rose-500 text-white text-xs  px-2 py-1 rounded-xl shadow">
+                            {parseInt(
+                              product?.quantity?.$numberInt ?? product?.quantity
+                            ) > 0
+                              ? "In Stock"
+                              : "Out of Stock"}
+                          </span>
+                        )}
                       </div>
 
-                      <div className="flex gap-2">
-                      <button
-                          
+                      <div className="px-3 py-2">
+                        <h3 className="md:font-semibold md:text-lg text-xs line-clamp-1 text-emerald-800 uppercase">
+                          {product?.name}
+                        </h3>
+                        <p className="text-sm hidden text-slate-500 line-clamp-1">
+                          {product?.description ?? "No description available."}
+                        </p>
+
+                        <div className="">
+                          {product.discountPercent > 0 ? (
+                            <div>
+                              <span className="line-through text-gray-400 text-sm">
+                                Rs. {rawPrice}
+                              </span>
+                              <div className="text-rose-500 text-sm md:text-lg font-bold">
+                                Rs. {discounted.toFixed(0)} (
+                                {product.discountPercent}% OFF)
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="md:text-xl text-base font-bold text-emerald-700">
+                              {priceText}
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-2 justify-between md:justify-center py-2">
+                          <button
                             onClick={(e) => {
-                                e.stopPropagation();
-                              handleAddToCart(product)
-                            toast.success("Product added to cart");
+                              e.stopPropagation();
+                              handleAddToCart(product);
                             }}
                             className={`md:px-3 py-2 px-2 text-sm rounded-lg font-medium shadow-sm border ${
                               parseInt(
@@ -211,21 +200,20 @@ const CategoryProduct = () => {
                               ) <= 0
                             }
                           >
-                            Add to Cart
+                            Buy now
                           </button>
 
-                        <button
-                          className="px-3 py-2 text-sm rounded-lg bg-gradient-to-r from-emerald-500 to-rose-500 text-white font-medium shadow hover:opacity-90 transition"
-                          onClick={() => navigate(`/details/${product.slug}`)}
-                        >
-                          View
-                        </button>
+                          <button
+                            className="md:px-3 px-2 py-2 text-sm rounded-lg bg-emerald-600 text-white font-medium shadow hover:shadow-md"
+                            onClick={() => navigate(`/details/${product.slug}`)}
+                          >
+                            View
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </article>
-              );
-            })}
+                    </article>
+                  );
+                })}
         </section>
       </div>
     </>
