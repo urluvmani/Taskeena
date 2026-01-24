@@ -234,10 +234,13 @@ const Collections = () => {
                       : rawPrice;
 
                   return (
-                    <article
-                      key={`${product?._id ?? product?.id ?? "product"}-${index}`}
-                      className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-1 transition shadow-emerald-200"
-                    >
+                  <article
+  key={`${product?._id ?? product?.id ?? "product"}-${index}`}
+  onClick={() => navigate(`/details/${product.slug}`)}
+  className="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer
+             transform hover:-translate-y-1 transition shadow-emerald-200"
+>
+
                       <div className="relative">
                         <img
                           src={`${import.meta.env.VITE_API_URL}/api/v1/product/product-photo/${product._id}`}
