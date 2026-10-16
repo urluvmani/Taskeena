@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSearch } from "../components/context/searchcontext";
 import { useNavigate } from "react-router-dom";
-import SEO from "../components/More/SEO"; // ✅ Added SEO component
+import SEO from "../components/More/SEO";
 
 const Search = () => {
   const { search } = useSearch();
   const navigate = useNavigate();
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const resultCount = search?.results?.length || 0;
 
